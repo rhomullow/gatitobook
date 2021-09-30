@@ -1,0 +1,29 @@
+<app-cartao *ngIf="animal$ | async as animal">
+  <div class="row d-flex justify-content-between">
+    <div class="col-auto">
+      <app-animal
+        [url]="animal.url"
+        [descricao]="animal.description"
+      ></app-animal>
+      <div class="d-flex justify-content-start align-items-center py-2">
+        <i (click)="curtir()" class="fa fa-heart-o fa-2x me-2">{{
+          animal.likes
+        }}</i>
+        <i class="fa fa-comment-o fa-2x">{{ animal.comments }}</i>
+        <i (click)="excluir()" class="fa fa-trash-o fa-2x ms-auto"></i>
+      </div>
+    </div>
+    <div class="col">
+      <small>
+        <p class="beak-word">{{ animal.description }}</p>
+      </small>
+      <app-comentarios
+        [id]="animal.id"
+        *ngIf="animal.allowComments; else warning"
+      ></app-comentarios>
+      <ng-template #warning>
+        <p>Usuário não pode comentar o animal</p>
+      </ng-template>
+    </div>
+  </div>
+</app-cartao>

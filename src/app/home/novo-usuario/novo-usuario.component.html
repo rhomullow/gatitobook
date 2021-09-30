@@ -1,0 +1,83 @@
+<h4 class="text-center m-4">Resgistre-se e mostre seu pet ao mundo!</h4>
+
+<form class="m-4" [formGroup]="novoUsuarioForm" (ngSubmit)="cadastrar()">
+  <div class="mb-3">
+    <input
+      type="email"
+      formControlName="email"
+      class="form-control"
+      placeholder="E-mail"
+    />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.required &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="E-mail obrigatório."
+    ></app-mensagem>
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.email &&
+        novoUsuarioForm.get('email')?.touched
+      "
+      mensagem="E-mail com formato inválido."
+    ></app-mensagem>
+  </div>
+  <div class="mb-3">
+    <input
+      type="text"
+      formControlName="fullName"
+      class="form-control"
+      placeholder="Nome Completo"
+    />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('fullName')?.errors &&
+        novoUsuarioForm.get('fullName')?.touched
+      "
+      mensagem="Nome incorreto."
+    ></app-mensagem>
+  </div>
+  <div class="mb-3">
+    <input
+      type="text"
+      formControlName="userName"
+      class="form-control"
+      placeholder="Usuário"
+    />
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('userName')?.errors?.minusculo &&
+        novoUsuarioForm.get('userName')?.touched
+      "
+      mensagem="Usuário deve conter apenas letras minúsculas."
+    ></app-mensagem>
+    <app-mensagem
+      *ngIf="
+        novoUsuarioForm.get('userName')?.errors?.usuarioExistente &&
+        novoUsuarioForm.get('userName')?.touched
+      "
+      mensagem="Usuário já existe."
+    ></app-mensagem>
+  </div>
+  <div class="mb-3">
+    <input
+      type="password"
+      formControlName="password"
+      class="form-control"
+      placeholder="Senha"
+    />
+    <app-mensagem
+      *ngIf="novoUsuarioForm.errors?.senhaIgualUsuario"
+      mensagem="Senha deve ser diferente do usuário"
+    ></app-mensagem>
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+  </div>
+</form>
+
+<div class="d-flex justify-content-center m-4">
+  <p>Já possui acesso? <a [routerLink]="['/']">Entre agora!</a></p>
+</div>
